@@ -1,4 +1,4 @@
-import readLines from "./fileReader.mjs";
+import { execute, NEWLINE } from "./helpers.mjs";
 
 function extractCalibrationNum(line) {
     const digits = [];
@@ -22,13 +22,13 @@ function extractCalibrationNum(line) {
     return Number(`${digits[0]}${digits[digits.length - 1]}`);
 }
 
-readLines("./inputs/1-input.txt")
-    .then(input => {
-        console.log(
-            input
-            .split("\r\n")
-            .map((l) => extractCalibrationNum(l))
-            .reduce((a, b) => a + b)
-        );
-    })
-    .catch(err => console.error(err));
+const func = input => {
+    const output = input.split(NEWLINE)
+        .map(line => extractCalibrationNum(line))
+        .reduce((sum, currentValue) => sum + currentValue);
+
+    console.log(output);
+    return output;
+};
+
+execute("./inputs/1-input.txt", func);
